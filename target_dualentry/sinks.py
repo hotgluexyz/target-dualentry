@@ -22,6 +22,7 @@ class VendorsSink(DualentrySink):
 class BillsSink(DualentrySink):
     """Drip target sink class."""
     name = "Bills"
+    relation_fields = [{"field": "vendor_id", "objectName": "Vendors"}]
     
     @property
     def endpoint(self) -> str:
