@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "target-dualentry"
+version = "0.0.1"
+description = "`target-dualentry` is a Singer target for Dualentry, built with the Meltano Singer SDK."
+readme = "README.md"
+authors = ["Areeb Siddiqui <areeb.siddiqui@hotglue.io>"]
+keywords = [
+    "ELT",
+    "Dualentry",
+]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "<3.12,>=3.7.1"
+target-hotglue = {git = "https://gitlab.com/hotglue/target-hotglue-sdk.git"}
+requests = "^2.31.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+
+[tool.poetry.extras]
+s3 = ["fs-s3fs"]
+
+[tool.ruff]
+ignore = [
+    "ANN101",  # missing-type-self
+    "ANN102",  # missing-type-cls
+]
+select = ["ALL"]
+src = ["target_dualentry"]
+target-version = "py37"
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.isort]
+known-first-party = ["target_dualentry"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[build-system]
+requires = ["poetry-core>=1.0.8"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+# CLI declaration
+target-dualentry = 'target_dualentry.target:TargetDualentry.cli'
