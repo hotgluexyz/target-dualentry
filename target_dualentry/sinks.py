@@ -11,6 +11,9 @@ from target_dualentry.client import DualentrySink
 class VendorsSink(DualentrySink):
     """Drip target sink class."""
     name = "Vendors"
+    relation_fields = [
+        {"field": "id", "objectName": "Vendors"}
+    ]
     
     @property
     def endpoint(self) -> str:
@@ -22,7 +25,10 @@ class VendorsSink(DualentrySink):
 class BillsSink(DualentrySink):
     """Drip target sink class."""
     name = "Bills"
-    relation_fields = [{"field": "vendor_id", "objectName": "Vendors"}]
+    relation_fields = [
+        {"field": "vendor_id", "objectName": "Vendors"},
+        {"field": "id", "objectName": "Bills"}
+    ]
     
     
     @property
