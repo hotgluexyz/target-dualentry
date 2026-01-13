@@ -29,7 +29,7 @@ class VendorsSink(DualentrySink):
             # Use POST for creates when record doesn't have an ID
             response = self.request_api("POST", request_data=record)
             id = response.json().get("id")
-        return id, response.ok, dict()
+        return str(id) if id is not None else id, response.ok, dict()
 
 class BillsSink(DualentrySink):
     """Drip target sink class."""
@@ -56,4 +56,4 @@ class BillsSink(DualentrySink):
             # Use POST for creates when record doesn't have an ID
             response = self.request_api("POST", request_data=record)
             id = response.json().get("internal_id")
-        return id, response.ok, dict()
+        return str(id) if id is not None else id, response.ok, dict()
