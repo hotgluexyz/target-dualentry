@@ -51,9 +51,9 @@ class BillsSink(DualentrySink):
             # Use PUT for updates when record has an ID
             record_id = record["id"]
             response = self.request_api("PUT", endpoint=f"{self.endpoint}/{record_id}", request_data=record)
-            id = response.json().get("internal_id")
+            id = response.json().get("number")
         else:
             # Use POST for creates when record doesn't have an ID
             response = self.request_api("POST", request_data=record)
-            id = response.json().get("internal_id")
+            id = response.json().get("number")
         return str(id) if id is not None else id, response.ok, dict()
