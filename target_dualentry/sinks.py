@@ -20,16 +20,19 @@ class VendorsSink(DualentrySink):
         return record
     
     def upsert_record(self, record: dict, context: dict):
+        state = dict()
+        
         if "id" in record:
             # Use PUT for updates when record has an ID
             record_id = record["id"]
             response = self.request_api("PUT", endpoint=f"{self.endpoint}/{record_id}", request_data=record)
             id = response.json().get("id")
+            state["is_updated"] = True
         else:
             # Use POST for creates when record doesn't have an ID
             response = self.request_api("POST", request_data=record)
             id = response.json().get("id")
-        return str(id) if id is not None else id, response.ok, dict()
+        return str(id) if id is not None else id, response.ok, state
 
 class BillsSink(DualentrySink):
     """Drip target sink class."""
@@ -47,13 +50,17 @@ class BillsSink(DualentrySink):
         return record
 
     def upsert_record(self, record: dict, context: dict):
+        
+        state = dict()
+        
         if "id" in record:
             # Use PUT for updates when record has an ID
             record_id = record["id"]
             response = self.request_api("PUT", endpoint=f"{self.endpoint}/{record_id}", request_data=record)
             id = response.json().get("number")
+            state["is_updated"] = True
         else:
             # Use POST for creates when record doesn't have an ID
             response = self.request_api("POST", request_data=record)
             id = response.json().get("number")
-        return str(id) if id is not None else id, response.ok, dict()
+        return str(id) if id is not None else id, response.ok, state
