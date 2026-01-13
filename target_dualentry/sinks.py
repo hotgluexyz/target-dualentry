@@ -24,6 +24,7 @@ class BillsSink(DualentrySink):
     name = "Bills"
     relation_fields = [{"field": "vendor_id", "objectName": "Vendors"}]
     
+    
     @property
     def endpoint(self) -> str:
         return f"/bills"
@@ -31,7 +32,7 @@ class BillsSink(DualentrySink):
     def preprocess_record(self, record: dict, context: dict) -> dict:
         return record
 
-    def upsert_record(self, record: dict, context: dict):
-        response = self.request_api("POST", request_data=record) # returns 204 no content
-        id = record.get("number")
-        return id, response.ok, dict()
+    # def upsert_record(self, record: dict, context: dict):
+    #     response = self.request_api("POST", request_data=record) # returns 204 no content
+    #     id = record.get("number")
+    #     return id, response.ok, dict()
