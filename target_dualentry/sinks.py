@@ -11,9 +11,6 @@ from target_dualentry.client import DualentrySink
 class VendorsSink(DualentrySink):
     """Drip target sink class."""
     name = "Vendors"
-    relation_fields = [
-        {"field": "id", "objectName": "Vendors"}
-    ]
     
     @property
     def endpoint(self) -> str:
@@ -21,13 +18,24 @@ class VendorsSink(DualentrySink):
     
     def preprocess_record(self, record: dict, context: dict) -> dict:
         return record
+    
+    def upsert_record(self, record: dict, context: dict):
+        if "id" in record:
+            # Use PUT for updates when record has an ID
+            record_id = record["id"]
+            response = self.request_api("PUT", endpoint=f"{self.endpoint}/{record_id}", request_data=record)
+            id = response.json().get("id")
+        else:
+            # Use POST for creates when record doesn't have an ID
+            response = self.request_api("POST", request_data=record)
+            id = response.json().get("id")
+        return id, response.ok, dict()
 
 class BillsSink(DualentrySink):
     """Drip target sink class."""
     name = "Bills"
     relation_fields = [
-        {"field": "vendor_id", "objectName": "Vendors"},
-        {"field": "id", "objectName": "Bills"}
+        {"field": "vendor_id", "objectName": "Vendors"}
     ]
     
     
@@ -38,7 +46,14 @@ class BillsSink(DualentrySink):
     def preprocess_record(self, record: dict, context: dict) -> dict:
         return record
 
-    # def upsert_record(self, record: dict, context: dict):
-    #     response = self.request_api("POST", request_data=record) # returns 204 no content
-    #     id = record.get("number")
-    #     return id, response.ok, dict()
+    def upsert_record(self, record: dict, context: dict):
+        if "id" in record:
+            # Use PUT for updates when record has an ID
+            record_id = record["id"]
+            response = self.request_api("PUT", endpoint=f"{self.endpoint}/{record_id}", request_data=record)
+            id = response.json().get("internal_id")
+        else:
+            # Use POST for creates when record doesn't have an ID
+            response = self.request_api("POST", request_data=record)
+            id = response.json().get("internal_id")
+        return id, response.ok, dict()
