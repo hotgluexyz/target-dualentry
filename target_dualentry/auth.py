@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 
 import logging
 import requests
-from target_hotglue.auth import Authenticator
+from hotglue_singer_sdk.target_sdk.auth import Authenticator
 
 
 class DualentryAuthenticator(Authenticator):
