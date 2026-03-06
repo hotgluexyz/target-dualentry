@@ -21,15 +21,6 @@ pytest = "^7.4.0"
 [tool.poetry.extras]
 s3 = ["fs-s3fs"]
 
-[tool.ruff]
-ignore = [
-    "ANN101",  # missing-type-self
-    "ANN102",  # missing-type-cls
-]
-select = ["ALL"]
-src = ["target_dualentry"]
-target-version = "py37"
-
 [tool.ruff.flake8-annotations]
 allow-star-arg-any = true
 

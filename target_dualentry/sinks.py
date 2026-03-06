@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-
-
 from target_dualentry.client import DualentrySink
 
 class VendorsSink(DualentrySink):
