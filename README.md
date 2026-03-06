@@ -28,21 +28,16 @@ pipx install git+https://github.com/ORG_NAME/target-dualentry.git@main
 
 ### Accepted Config Options
 
-<!--
-Developer TODO: Provide a list of config options accepted by the target.
+| Setting | Required | Type | Description |
+|---------|----------|------|-------------|
+| `api_key` | Yes | string | API key used to authenticate requests. Sent as the `X-API-KEY` header. |
 
-This section can be created by copy-pasting the CLI output from:
+Example `config.json`:
 
-```
-target-dualentry --about --format=markdown
-```
--->
-
-A full list of supported settings and capabilities for this
-target is available by running:
-
-```bash
-target-dualentry --about
+```json
+{
+  "api_key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
 ```
 
 ### Configure using environment variables
