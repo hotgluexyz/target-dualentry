@@ -7,6 +7,7 @@ from hotglue_singer_sdk.target_sdk.target import TargetHotglue
 
 from target_dualentry.sinks import (
     BillsSink,
+    JournalEntriesSink,
     VendorsSink,
 )
 
@@ -26,7 +27,7 @@ class TargetDualentry(TargetHotglue):
 
     name = "target-dualentry"
 
-    SINK_TYPES = [VendorsSink, BillsSink]
+    SINK_TYPES = [VendorsSink, BillsSink, JournalEntriesSink]
     MAX_PARALLELISM = 1
 
     config_jsonschema = th.PropertiesList(
