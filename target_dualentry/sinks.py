@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from __future__ import annotations
-
+from datetime import datetime
 
 
 from target_dualentry.client import DualentrySink
@@ -14,7 +13,7 @@ class VendorsSink(DualentrySink):
     
     @property
     def endpoint(self) -> str:
-        return f"/vendors"
+        return "/vendors"
     
     def preprocess_record(self, record: dict, context: dict) -> dict:
         return record
@@ -44,7 +43,7 @@ class BillsSink(DualentrySink):
     
     @property
     def endpoint(self) -> str:
-        return f"/bills"
+        return "/bills"
     
     def preprocess_record(self, record: dict, context: dict) -> dict:
         return record

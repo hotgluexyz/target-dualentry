@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import backoff
-import requests
-from hotglue_singer_sdk.exceptions import FatalAPIError, RetriableAPIError
 
 from hotglue_singer_sdk.target_sdk.client import HotglueSink
 
