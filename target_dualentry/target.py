@@ -7,7 +7,6 @@ from hotglue_singer_sdk.target_sdk.target import TargetHotglue
 
 from target_dualentry.sinks import (
     BillsSink,
-    DualentrySink,
     VendorsSink,
 )
 
