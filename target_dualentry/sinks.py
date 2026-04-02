@@ -100,6 +100,10 @@ class JournalEntriesSink(DualentrySink):
 
         if record.get("subsidiaryId"):
             payload["company_id"] = int(record["subsidiaryId"])
+        elif self.config.get("default_subsidiary_id"):
+            payload["company_id"] = int(self.config.get("default_subsidiary_id"))
+        else:
+            raise ValueError("No subsidiary ID found in record or config")
 
         if record.get("description"):
             payload["memo"] = record["description"]
